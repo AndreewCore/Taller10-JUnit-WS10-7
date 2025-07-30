@@ -24,6 +24,7 @@ public class OperationsTest {
     
     @BeforeAll
     public static void setUpClass() {
+
     }
     
     @AfterAll
@@ -32,6 +33,9 @@ public class OperationsTest {
     
     @BeforeEach
     public void setUp() {
+        private String formula1 = "3/4";
+        private String formula2 = "100*100*100*100";
+        private String formula3 = "4*3+2*4";
     }
     
     @AfterEach
@@ -81,6 +85,28 @@ public class OperationsTest {
         // Asegura que la fórmula no termine con un operador
         assertFalse(expectNumber);
     }
+@Test
+@DisplayName("comprueba si se pueden realizar operaciones con resultados menores a 1")
+public void TestSolve(){
+    String resultado = Operations.Solve(formula1);
+    assertTrue(Integer.valueOf(resultado) < 1);
 
+}
+
+
+@Test
+@DisplayName("Comprueba para el maximo resultado posible")
+public void TestSolve2(){
+    String resultado = Operations.Solve(formula2);
+    assertEquals(resultado, formula2+"=100000000");
+}
+
+
+@Test
+@DisplayName("Comprueba si sigue orden de jerarquias")
+public void TestSolve3(){
+    String resultado = Operations.Solve(formula3);
+    assertEquals(resultado, formula3+"=20");
+}
     
 }
