@@ -4,6 +4,8 @@
  */
 package calculatorsmp;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,32 +37,50 @@ public class OperationsTest {
     @AfterEach
     public void tearDown() {
     }
+    
+    private boolean isInteger(String cadena) {
+        try {
+            Integer.valueOf(cadena);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
     /**
      * Test of MakeFormula method, of class Operations.
      */
     @Test
-    public void testMakeFormula() {
-        System.out.println("MakeFormula");
-        String expResult = "";
+    public void testMakeFormulaValidFormat() {
+        System.out.println("MakeFormula Valid Format");
         String result = Operations.MakeFormula();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ArrayList<Character> operators = new ArrayList<>(Arrays.asList('*', '+', '-', '/'));
+
+        int i = 0;
+        boolean expectNumber = true;
+
+        while (i < result.length()) {
+            if (expectNumber) {
+                // Buscar número de 1 o 2 dígitos
+                int start = i;
+                while (i < result.length() && Character.isDigit(result.charAt(i))) {
+                    i++;
+                }
+                String number = result.substring(start, i);
+                assertTrue(isInteger(number));
+                expectNumber = false;
+            } else {
+                // Validar operador
+                char operator = result.charAt(i);
+                assertTrue(operators.contains(operator));
+                i++;
+                expectNumber = true;
+            }
+        }
+
+        // Asegura que la fórmula no termine con un operador
+        assertFalse(expectNumber);
     }
 
-    /**
-     * Test of Solve method, of class Operations.
-     */
-    @Test
-    public void testSolve() {
-        System.out.println("Solve");
-        String formula = "";
-        String expResult = "";
-        String result = Operations.Solve(formula);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
     
 }
