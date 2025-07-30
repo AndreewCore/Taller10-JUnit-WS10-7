@@ -108,5 +108,40 @@ public void TestSolve3(){
     String resultado = Operations.Solve(formula3);
     assertEquals(resultado, formula3+"=20");
 }
+        @DisplayName("Operacion con dos digitos")
+    public void PruebaSolve1(){
+        String cadena = "20*2";
+        String resultado_s = "20*2=40";
+        String resultado = Operations.Solve(cadena);
+        assertEquals(resultado_s, resultado);
+    }
+
+    @Test
+    @DisplayName("Operacion con tres numeros")
+    public void PruebaSolve2(){
+        String cadena = "20*22+12";
+        String resultado_s = "20*22+12=452";
+        String resultado = Operations.Solve(cadena);
+        assertEquals(resultado_s, resultado);
+    }
+
+
+    @Test
+    @DisplayName("Suma con más de tres numeros")
+    public void PruebaSolve4(){
+        String cadena = "20+2*2+5*2";
+        String resultado_s = "20+2*2-5*2=34";
+        String resultado = Operations.Solve(cadena);
+        assertEquals(resultado_s, resultado);
+    }
+
+    @Test
+    @DisplayName("Suma con numero de un digito")
+    public void PruebaSolve5(){
+        String cadena = "2+2+1";
+        String resultado_s = "2+2+1=5";
+        String resultado = Operations.Solve(cadena);
+        assertEquals(resultado_s, resultado);
+    }
     
 }
